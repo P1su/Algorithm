@@ -7,28 +7,23 @@ int solution(vector<string> babbling) {
     int answer = 0;
     vector<string> words = {"aya", "ye", "woo", "ma"};
     
-    for(auto &s: babbling){
-        bool flag = 0;
-        
-        while(s != ""){
-            for(auto word: words){
-                if(s.find(word) == 0){
+    for(auto s : babbling){
+        while(!s.empty()){
+            bool matched = false;
+
+            for(const auto& word : words){
+                if(s.compare(0, word.length(), word) == 0){
                     s = s.substr(word.length());
-                    flag = 0;
+                    matched = true;
                     break;
-                }else{
-                    flag = 1;
                 }
-            } 
-            if(flag)break;
+            }
+
+            if(!matched) break;
         }
-        
-        if(flag){
-            continue;
-        }else{
-            answer++;
-        }
-        
+
+        if(s.empty()) answer++;
     }
+
     return answer;
 }
